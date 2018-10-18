@@ -66,4 +66,4 @@ export class SignupPage {
   signupUser() {
     console.log("enviou o form");
   }
-}
+} 
