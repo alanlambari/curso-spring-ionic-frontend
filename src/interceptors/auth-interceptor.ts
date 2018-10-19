@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Observable } from 'rxjs/Rx'; // IMPORTANTE: IMPORT ATUALIZADO
-import { StoregeService } from '../services/storege.service';
+import { StorageService } from '../services/storage.service';
 import { API_CONFIG } from '../config/api.config';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
 
-    constructor(public storage: StoregeService){
+    constructor(public storage: StorageService){
     }
 
 
