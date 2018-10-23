@@ -4,7 +4,7 @@ import { CartItem } from '../../models/cart-item';
 import { ProdutoService } from '../../services/domain/produto.service';
 import { API_CONFIG } from '../../config/api.config';
 import { CartService } from '../../services/domain/cart.service';
-
+import { ProdutoDTO } from '../../models/produto.dto';
 
 @IonicPage()
 @Component({
@@ -13,7 +13,7 @@ import { CartService } from '../../services/domain/cart.service';
 })
 export class CartPage {
 
-  items : CartItem[];
+  items: CartItem[];
 
   constructor(
     public navCtrl: NavController, 
@@ -33,11 +33,29 @@ export class CartPage {
       let item = this.items[i];
       this.produtoService.getSmallImageFromBucket(item.produto.id)
         .subscribe(response => {
-           item.produto.imageUrl = `${API_CONFIG.bucketBaseUrl}/prod${item.produto.id}-small.jpg`;
+          item.produto.imageUrl = `${API_CONFIG.bucketBaseUrl}/prod${item.produto.id}-small.jpg`;
         },
         error => {});
     }
   }  
 
+  removeItem(produto: ProdutoDTO) {
+    this.items = this.cartService.removeProduto(produto).items;
+  }
 
+  increaseQuantity(produto: ProdutoDTO) {
+    this.items = this.cartService.increaseQuantity(produto).items;
+  }
+
+  decreaseQuantity(produto: ProdutoDTO) {
+    this.items = this.cartService.decreaseQuantity(produto).items;
+  }
+
+  total() : number {
+    return this.cartService.total();
+  }  
+
+  goOn() {
+    this.navCtrl.setRoot('CategoriasPage');
+  }
 }
